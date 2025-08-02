@@ -1,6 +1,6 @@
-MERN Social Media App
+Social Media App
 
-This is a full-featured **Social Media Application** built using the **MERN Stack** (MongoDB, Express.js, React, Node.js). The app supports user authentication, profile creation, image/video sharing, friend suggestions, chatting, and more.
+This is a full-featured **Social Media Application** built using the (MongoDB, Express.js, Node.js). The app supports user authentication, profile creation, image/video sharing, friend suggestions, chatting, and more.
 
 ---
 
@@ -12,7 +12,7 @@ Features
 - 🖼️ Post Photos and Videos with Captions
 - ❤️ Like and Comment on Posts
 - 🔄 Reels Section (Short Videos)
-- 👫 Friend Request System
+- 👫 Friend Request System(Send Request, Accept Request)
 - 📨 Basic Chat Functionality
 - 📄 Pagination for Posts and Reels
 - 🧠 Smart Friend Suggestions
@@ -21,16 +21,12 @@ Features
 
 Tech Stack
 
-#Frontend
-- React (Vite)
-- CSS / TailwindCSS (optional)
-- Axios
-
 #Backend
 - Node.js
 - Express.js
 - MongoDB (Mongoose)
 - JWT for Authentication
+- Bycrypt for encryption 
 - Multer + Cloudinary for File Upload
 - Nodemailer for Email Service
 - EJS for Email Templates
