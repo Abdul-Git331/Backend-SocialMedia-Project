@@ -1,0 +1,76 @@
+<head>
+  <style>
+    .friend-profile {
+      max-width: 600px;
+      margin: 30px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    .profile-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-header img {
+      height: 10vh;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 15px;
+      border: 2px solid #ddd;
+    }
+
+    .profile-header p {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .post {
+      background-color: #f7f7f7;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+    .post-title{
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .post-image{
+      width: 100%;
+      height: 60vh;
+    }
+  </style>
+</head>
+
+<div class="friend-profile">
+  <div class="profile-header">
+    <img src="<%=friend.profilepic %>" alt="Profile Picture" />
+    <p>@<%=friend.userName%></p>
+  </div>
+  <h5>Posts</h5>
+  <% friend.post.map((post) => { %>
+  <% if(post._id){%>
+    <div class="post">
+      <p class="post-title"><%=post.title%></p>
+      <%if(post.postImage){%>
+        <img class="post-image" src="<%=post.postImage %>" alt="">
+        <% } %> 
+      <p><%= post.content %></p>
+      <a href="/like?id=<%= post._id %>">
+        <%= post.likes.indexOf(userId) === -1 ? "Like " : "Unlike " %><%= post.likes.length%>
+      </a>
+    </div>
+   
+    <%  }else{%>
+      <p>No Post Found</p>
+      <%  }%>
+  <% }) %>
+</div>

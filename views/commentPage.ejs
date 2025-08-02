@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        /* Center everything inside the comment section */
+       
+        .comment-box {
+          display: flex;
+          flex-direction: column;
+        
+          margin-bottom: 20px;
+        }
+        
+        /* Style the textarea */
+        .comment-form textarea {
+          width: 80%;
+         
+          padding: 10px;
+          
+          border-radius: 8px;
+          border: 1px solid #ccc;
+          resize: vertical;
+        }
+        
+        /* Style the button */
+        .comment-form button {
+          margin-top: 10px;
+          padding: 6px 16px;
+          background-color: #007bff;
+          color: white;
+          border: none;
+          border-radius: 6px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+        
+        .comment-form button:hover {
+          background-color: #0056b3;
+        }
+        
+        /* Style each comment */
+        .comment-box {
+          background: #f5f5f5;
+          padding: 10px 16px;
+          border-radius: 10px;
+          width: 80%;
+        
+        }
+        
+        /* Username small and bold */
+        .comment-user {
+          font-size: 12px;
+          font-weight: bold;
+          color: #333;
+          margin-bottom: 6px;
+        }
+        
+        /* Comment text */
+        .comment-text {
+          font-size: 14px;
+          color: #444;
+        }
+        </style>
+        
+  </head>
+  <body>
+    <p>Add Comment</p>
+    <form action="comment?postid=<%=postId%>" method="post" class="comment-form">
+        <input type="hidden" name="userId" value="<%=userId %>" />
+        <textarea name="cmtContent" rows="3"></textarea>
+        <button>Comment</button>
+      </form>
+
+      <% post.comment.map((comment) =>{ %>
+        <div class="comment-box">
+          <p class="comment-user">@<%= comment.user.userName %></p>
+          <p class="comment-text"><%= comment.cmtContent %></p>
+          <%if(comment.user){ %>
+            <a href="">
+                Delete
+              </a>
+          <% }%>
+
+        </div>
+      <%}) %>
+      
+  </body>
+</html>
+
+

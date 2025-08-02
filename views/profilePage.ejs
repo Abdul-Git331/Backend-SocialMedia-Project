@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>User Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        height: 100vh;
+      }
+
+      .sidebar {
+        width: 15%;
+        background-color: #fff;
+        padding: 30px;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .main {
+        width: 85%;
+        padding: 30px;
+        overflow-y: auto;
+      }
+
+      .logout-btn {
+        background-color: #dc3545;
+        color: white;
+        padding: 8px 14px;
+        font-size: 14px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .logout-btn:hover {
+        background-color: #b02a37;
+      }
+
+      .user-profilepic {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 3px solid #ccc;
+        margin-bottom: 15px;
+      }
+
+      h4 {
+        margin: 0;
+      }
+
+      .create-post {
+        background-color: #e6f0ff;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
+
+      textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        resize: none;
+        font-size: 14px;
+      }
+
+      button {
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        background: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s ease;
+      }
+
+      li:hover {
+        transform: translateY(-2px);
+      }
+
+      .post-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        font-weight: bold;
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 8px;
+      }
+
+      .post-date {
+        font-size: 12px;
+        color: #888;
+        margin-bottom: 12px;
+      }
+
+      .post-content {
+        font-size: 15px;
+        color: #444;
+        margin-bottom: 15px;
+        line-height: 1.5;
+      }
+
+      .post-actions {
+        display: flex;
+        gap: 15px;
+      }
+
+      .post-actions a {
+        display: inline-block;
+        padding: 6px 12px;
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        background-color: #007bff;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .post-actions a:hover {
+        background-color: #0056b3;
+      }
+
+      .suggestions-container {
+        width: 20%;
+        max-width: 150px;
+        margin: 2% auto;
+        background-color: #fefefe;
+        border-radius: 10px;
+        padding: 2%;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      .suggestions-container h5 {
+        font-size: 1rem;
+        margin-bottom: 15px;
+        color: #333;
+      }
+
+      .suggestion-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f5f5f5;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+      }
+
+      .suggestion-item li {
+        list-style: none;
+        font-size: 15px;
+        color: #333;
+      }
+
+      .suggestion-item a {
+        padding: 6px 12px;
+        background-color: #007bff;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: background-color 0.3s ease;
+      }
+
+      .suggestion-item a:hover {
+        background-color: #0056b3;
+      }
+
+      .dashboard-content {
+        display: flex;
+        justify-content: space-between;
+        gap: 2%;
+      }
+
+      .post-section {
+        flex: 1;
+        /* max-width: 650px; */
+      }
+
+      .suggestions-container {
+        width: 280px;
+        margin: 0;
+        align-self: flex-start;
+      }
+      .pageNumber {
+        position: absolute;
+        bottom: 10px;
+        left: 45%;
+      }
+      .post-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .post-video {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .post-profilepic {
+        border-radius: 50%;
+        height: 5vh;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <a href="/register/uploadpic">
+        <img
+          class="user-profilepic"
+          src="<%= user.profilepic %>"
+          alt="Profile Picture"
+        />
+      </a>
+      <h4><strong><%= user.userName %></strong><a href="/"></a></h4>
+      <a href="/create-post">Create Post</a>
+      <br />
+      <a href="/view-user-profile">View Profile</a>
+      <br />
+      <hr />
+      <a href="/reels">Watch reels</a>
+      <br>
+      <hr>
+      <strong><a href="/view-friend-request">View Friend Request</a></strong>
+      <strong><a href="/friend-list">View Friend</a></strong>
+      <a href="/logout" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- Main Content -->
+    <!-- Main Content -->
+    <div class="main">
+      <div class="dashboard-content">
+        <!-- Left / Center Section (Create post + Posts) -->
+        <div class="post-section">
+          <div class="create-post">
+            <h3>Share yout thoughts with your friends</h3>
+            <form method="post" action="/something-in mind">
+              <textarea
+                rows="4"
+                name="content"
+                placeholder="What's on your mind?"
+              ></textarea>
+              <button type="submit">Share</button>
+            </form>
+          </div>
+
+          <h5>Your Friends' Posts</h5>
+          <ul>
+            <%if(posts.length === 0){ %>
+            <p>No posts found</p>
+            <% }%> 
+            <% posts.map((post) => { %>
+            <li>
+              <div class="post-header">
+                <img class="post-profilepic" src="<%=post.user.profilepic %>" />
+                <span>@<%= post.user.userName %></span>
+              </div>
+              <div><p><%= post.title %></p></div>
+              <% if (post.postImage) { %>
+              <img
+                class="post-img"
+                src="<%= post.postImage %>"
+                alt="Post Image"
+              />
+              <% } else if (post.postVideo) { %>
+              <video
+                class="post-video"
+                src="<%= post.postVideo %>"
+                autoplay
+                muted
+                playsinline
+                controls
+              ></video>
+
+              <% } %>
+              <div class="post-date"><%= post.date %></div>
+              <div class="post-content"><%= post.content %></div>
+              <div class="post-actions">
+                <a href="/like?id=<%= post._id %>">
+                  <%= post.likes.indexOf(user._id) == -1 ? "Like" : "Unlike" %>
+                  (<%= post.likes.length %>)
+                </a>
+                <a href="/edit?id=<%= post._id %>">Edit</a>
+                <a href="/comment?postid=<%=post._id%>">Comment</a>
+              </div>
+            </li>
+            <% }) %>
+          </ul>
+
+          <div class="pageNumber">
+            <% for(let i = 1; i <= totalPage; i++) { %>
+            <span>
+              <a href="/profile?page=<%= i %>"><%= i %></a>
+            </span>
+            <% } %>
+          </div>
+
+          <!-- <span><a href="">2</a></span>
+        <span><a href="">3</a></span>
+          <span><a href="">4</a></span>
+            <span><a href="">5</a></span> -->
+        </div>
+
+        <!-- Right Section (Suggestions) -->
+        <div class="suggestions-container">
+          <h5>Friend Suggestions</h5>
+          <% suggestions.map((user) => { %>
+          <div class="suggestion-item">
+            <li><%= user.userName %></li>
+            <a href="/send-friend-request?friendId=<%= user._id %>"
+              >Add Friend</a
+            >
+          </div>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const videos = document.querySelectorAll("video");
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.play();
+              } else {
+                entry.target.pause();
+              }
+            });
+          },
+          {
+            threshold: 0.5,
+          }
+        );
+
+        videos.forEach((video) => {
+          observer.observe(video);
+        });
+      });
+    </script>
+  </body>
+</html>

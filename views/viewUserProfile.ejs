@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      margin: 0;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .profile-container img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+
+    .profile-container h4 {
+      margin: 0;
+      font-size: 1.2rem;
+    }
+
+    .profile-container a {
+      text-decoration: none;
+      color: #007BFF;
+    }
+
+    .friend-link {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .post {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      max-width: 600px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .post img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    .post video{
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+    .post p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 600px) {
+      .profile-container img {
+        width: 90px;
+        height: 90px;
+      }
+
+      .post {
+        padding: 10px;
+      }
+
+      .profile-container h4 {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile-container">
+    <a href="/register/uploadpic">
+      <img src="<%= user.profilepic %>" alt="Profile Picture">
+    </a>
+    <h4><strong><%= user.userName %></strong></h4>
+    <div class="friend-link">
+      <a href="/friend-list">View Friend</a>
+    </div>
+  </div>
+
+  <% user.post.map((post) => { %>
+    <div class="post">
+      <p><strong><%= post.title %></strong></p>
+  
+      <% if (post.postImage) { %>
+        <img src="<%= post.postImage %>" alt="Post Image">
+      <% } else if (post.postVideo) { %>
+        <video
+        src="<%= post.postVideo %>"
+        autoplay
+        muted
+        playsinline
+        controls
+      ></video>
+      
+      <% } %>
+  
+      <p><%= post.content %></p>
+      <p><small><%= post.date %></small></p>
+      <a href="/like">❤️ <%= post.likes.length %> likes</a>
+    </div>
+  <% }) %>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const videos = document.querySelectorAll("video");
+  
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.play();
+            } else {
+              entry.target.pause();
+            }
+          });
+        },
+        {
+          threshold: 0.5, // play when 50% visible
+        }
+      );
+  
+      videos.forEach((video) => {
+        observer.observe(video);
+      });
+    });
+  </script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,67 @@
+<head>
+        <style>
+            .friend-list-container {
+                width: 400px;
+                margin: 30px auto;
+                padding: 20px;
+                background-color: #fdfdfd;
+                border-radius: 10px;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                font-family: 'Segoe UI', sans-serif;
+            }
+    
+            .friend-list-container p {
+                font-size: 16px;
+                color: #333;
+            }
+    
+            .friend-header {
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 15px;
+                color: #444;
+            }
+    
+            .friend-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background-color: #f1f1f1;
+                padding: 10px 15px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+            }
+    
+            .friend-item a {
+                padding: 6px 12px;
+                background-color: #28a745;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                font-size: 14px;
+                transition: background-color 0.3s ease;
+            }
+    
+            .friend-item a:hover {
+                background-color: #1e7e34;
+            }
+        </style>
+    </head>
+    
+    <div class="friend-list-container">
+        <p>Hello <strong><%= user.userName %></strong></p>
+    
+        <div class="friend-header">Friend List</div>
+    
+        <% user.friends.map((friend) => { %>
+            <div class="friend-item">
+                <span><%= friend.userName %></span>
+                <div>
+                    <a href="/view-friend-profile?friendId=<%= friend._id %>">View Profile</a>
+                    <a href="/chat-friend?friendId=<%= friend._id %>">Chat</a>
+                </div>
+
+            </div>
+        <% }) %>
+    </div>
+    

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="main_div">
+
+    </div>
+    <div id="msg_writer">
+      <input id="msg" type="text">
+      <button id="send_msg">Send</button>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const userId = "<%= sender._id %>"; 
+        const friendId = "<%= reciever._id %>";
+        
+        const msg = document.getElementById('msg')
+        const send_msg = document.getElementById('send_msg')
+        const socket = io()
+
+        socket.on('welcomeMsg' , (data) => {
+            const div = document.createElement('div')
+            div.textContent = data.msg
+            main_div.appendChild(div)
+        })
+       
+       socket.emit('joinRoom', {userId, friendId})
+
+       send_msg.addEventListener('click' , (e) =>{
+        socket.emit('msg' , {msg: msg.value,userId,friendId})
+       })
+
+       socket.on('newMsg', (data) =>{
+        const div = document.createElement('div')
+            div.textContent = data.msg
+            main_div.appendChild(div)
+       } )
+    </script>
+</body>
+</html>
+
