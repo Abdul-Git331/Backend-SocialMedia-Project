@@ -2,7 +2,7 @@ const express = require("express");
 const userModel = require("../model/userModel");
 const postModel = require("../model/postModel");
 const reelModel = require("../model/reelModel");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const verifyToken = require("../helper/verifyToken");
 const jwt = require("jsonwebtoken");
 const upload = require("../utils/multerConfig");
@@ -376,17 +376,6 @@ userRoute.get("/view-friend-profile", verifyToken, async (req, res) => {
   res.render("friendProfile", { friend, userId });
 });
 
-//API for chat with Friends
-
-userRoute.get("/chat-friend", verifyToken, async (req, res) => {
-  const friendId = req.query.friendId;
-  const { userId } = req.user;
-
-  const sender = await userModel.findOne({ _id: userId });
-  const reciever = await userModel.findOne({ _id: friendId });
-
-  res.render("chatPage", { sender, reciever });
-});
 
 //Api for creating reels
 
@@ -396,11 +385,7 @@ userRoute.get("/create-reel", verifyToken, (req, res) => {
   res.render("createReel", { userId });
 });
 
-userRoute.post(
-  "/create-reel",
-  upload.single("file"),
-  verifyToken,
-  async (req, res) => {
+userRoute.post("/create-reel",upload.single("file"),verifyToken,async (req, res) => {
     const { userId } = req.user;
     const { content } = req.body;
     const mimeType = req.file.mimetype;

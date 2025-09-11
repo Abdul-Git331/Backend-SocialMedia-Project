@@ -10,7 +10,6 @@ const verifyToken = (req,res,next) => {
     req.user = data
 
     return next()
-
 }
 
 module.exports = verifyToken

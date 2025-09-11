@@ -19,23 +19,6 @@ app.use(express.urlencoded())
 app.use(express.static(path.join(__dirname,'public')))
 app.use(cookieParser())
 
-
 app.use('/',userRoute)
 
-
-io.on('connection' , (socket) =>{
-
-    socket.emit('welcomeMsg',{msg: 'Hello! Dear'})
-
-    socket.on('joinRoom' ,(data) =>{
-        const roomId = data.userId+data.friendId
-        console.log(roomId)
-        socket.join(roomId)
-    })
-    socket.on('msg', (data) =>{
-        const roomId = data.userId+data.friendId
-        io.to(roomId).emit('newMsg' , {msg: data.msg})
-    })
-})
-//Fix the chat functionality RElated -> chatPage,vieewfriend
 server.listen(process.env.PORT)
