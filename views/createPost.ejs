@@ -1,8 +1,80 @@
 
 
-<form action="/create-post" method="post" enctype="multipart/form-data">
-    <input type="text" name="title" placeholder="Enter post title">
-    <input type="text" name="content" placeholder="Enter Content" >
-    <input type="file" name="file" >
-    <button>Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Create Post</title>
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: #f4f6f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .create-post-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      width: 400px;
+      text-align: center;
+    }
+
+    .create-post-container h2 {
+      margin-bottom: 20px;
+      font-size: 22px;
+      color: #333;
+    }
+
+    .create-post-container input[type="text"],
+    .create-post-container input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+
+    .create-post-container input[type="text"]:focus,
+    .create-post-container input[type="file"]:focus {
+      border-color: #007bff;
+    }
+
+    .create-post-container button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .create-post-container button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="create-post-container">
+    <h2>Create a New Post</h2>
+    <form action="/create-post" method="post" enctype="multipart/form-data">
+      <input type="text" name="title" placeholder="Enter post title" required />
+      <input type="text" name="content" placeholder="Enter content" required />
+      <input type="file" name="file" />
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+</body>
+</html>
