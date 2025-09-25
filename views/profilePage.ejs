@@ -13,37 +13,59 @@
         height: 100vh;
       }
 
+      /* Sidebar */
       .sidebar {
         width: 15%;
+        min-width: 200px;
         background-color: #fff;
-        padding: 30px;
+        padding: 20px;
         box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
         display: flex;
         flex-direction: column;
+        justify-content: space-between; /* pushes logout to bottom */
         align-items: center;
+        transition: transform 0.3s ease;
       }
 
-      .main {
-        width: 85%;
-        padding: 30px;
-        overflow-y: auto;
+      .sidebar-top {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
       }
 
-      .logout-btn {
-        background-color: #dc3545;
-        color: white;
-        padding: 8px 14px;
-        font-size: 14px;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: background-color 0.3s ease;
+      .sidebar-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
         margin-top: 20px;
       }
 
+      .sidebar-links a {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+        background: #007bff;
+        color: #fff;
+        text-decoration: none;
+        font-size: 14px;
+        transition: background 0.3s ease;
+      }
+
+      .sidebar-links a:hover {
+        background: #0056b3;
+      }
+
+      .logout-btn {
+        background-color: #dc3545 !important;
+      }
+
       .logout-btn:hover {
-        background-color: #b02a37;
+        background-color: #b02a37 !important;
       }
 
       .user-profilepic {
@@ -52,11 +74,17 @@
         object-fit: cover;
         border-radius: 50%;
         border: 3px solid #ccc;
-        margin-bottom: 15px;
       }
 
       h4 {
         margin: 0;
+      }
+
+      /* Main content */
+      .main {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
       }
 
       .create-post {
@@ -85,6 +113,7 @@
         border-radius: 8px;
         cursor: pointer;
         font-size: 14px;
+        transition: background-color 0.3s ease;
       }
 
       button:hover {
@@ -155,9 +184,9 @@
       }
 
       .suggestions-container {
-        width: 20%;
-        max-width: 150px;
-        margin: 2% auto;
+        width: 280px;
+        margin: 0;
+        align-self: flex-start;
         background-color: #fefefe;
         border-radius: 10px;
         padding: 2%;
@@ -209,74 +238,137 @@
 
       .post-section {
         flex: 1;
-        /* max-width: 650px; */
       }
 
-      .suggestions-container {
-        width: 280px;
-        margin: 0;
-        align-self: flex-start;
-      }
       .pageNumber {
-        position: absolute;
-        bottom: 10px;
-        left: 45%;
-      }
-      .post-img {
-        width: 100%;
-        height: auto;
-        border-radius: 8px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        position: relative;
+        margin-top: 20px;
+        text-align: center;
       }
 
+      .pageNumber a {
+        margin: 0 5px;
+        text-decoration: none;
+        color: #007bff;
+        font-weight: bold;
+      }
+
+      .pageNumber a:hover {
+        text-decoration: underline;
+      }
+
+      .post-img,
       .post-video {
         width: 100%;
         height: auto;
         border-radius: 8px;
-        margin-top: 10px;
-        margin-bottom: 10px;
+        margin: 10px 0;
       }
 
       .post-profilepic {
         border-radius: 50%;
-        height: 5vh;
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 1024px) {
+        .dashboard-content {
+          flex-direction: column;
+        }
+
+        .suggestions-container {
+          width: 100%;
+          margin-top: 20px;
+        }
+
+        .sidebar {
+          width: 200px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        body {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-around;
+          padding: 10px;
+          position: sticky;
+          top: 0;
+          z-index: 100;
+        }
+
+        .main {
+          width: 100%;
+        }
+
+        .dashboard-content {
+          flex-direction: column;
+        }
+
+        .suggestions-container {
+          width: 100%;
+          margin-top: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .post-actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .post-actions a {
+          width: 100%;
+          text-align: center;
+        }
+
+        .sidebar {
+          flex-wrap: wrap;
+        }
+
+        .sidebar a {
+          font-size: 14px;
+        }
       }
     </style>
   </head>
   <body>
     <!-- Sidebar -->
     <div class="sidebar">
-      <a href="/register/uploadpic">
-        <img
-          class="user-profilepic"
-          src="<%= user.profilepic %>"
-          alt="Profile Picture"
-        />
-      </a>
-      <h4><strong><%= user.userName %></strong><a href="/"></a></h4>
-      <a href="/create-post">Create Post</a>
-      <br />
-      <a href="/view-user-profile">View Profile</a>
-      <br />
-      <hr />
-      <a href="/reels">Watch reels</a>
-      <br>
-      <hr>
-      <strong><a href="/view-friend-request">View Friend Request</a></strong>
-      <strong><a href="/friend-list">View Friend</a></strong>
-      <a href="/logout" class="logout-btn">Logout</a>
+      <div class="sidebar-top">
+        <a href="/register/uploadpic">
+          <img
+            class="user-profilepic"
+            src="<%= user.profilepic %>"
+            alt="Profile Picture"
+          />
+        </a>
+        <h4><strong><%= user.userName %></strong></h4>
+        <div class="sidebar-links">
+          <a href="/create-post">Create Post</a>
+          <a href="/view-user-profile">View Profile</a>
+          <a href="/reels">Watch Reels</a>
+          <a href="/view-friend-request">Friend Requests</a>
+          <a href="/friend-list">Friends</a>
+        </div>
+      </div>
+      <a href="/logout" class="sidebar-links logout-btn">Logout</a>
     </div>
 
     <!-- Main Content -->
-    <!-- Main Content -->
     <div class="main">
       <div class="dashboard-content">
-        <!-- Left / Center Section (Create post + Posts) -->
+        <!-- Left / Center Section -->
         <div class="post-section">
           <div class="create-post">
-            <h3>Share yout thoughts with your friends</h3>
-            <form method="post" action="/something-in mind">
+            <h3>Share your thoughts with your friends</h3>
+            <form method="post" action="/something-in-mind">
               <textarea
                 rows="4"
                 name="content"
@@ -288,9 +380,9 @@
 
           <h5>Your Friends' Posts</h5>
           <ul>
-            <%if(posts.length === 0){ %>
-            <p>No posts found</p>
-            <% }%> 
+            <% if(posts.length === 0){ %>
+              <p>No posts found</p>
+            <% } %>
             <% posts.map((post) => { %>
             <li>
               <div class="post-header">
@@ -299,11 +391,7 @@
               </div>
               <div><p><%= post.title %></p></div>
               <% if (post.postImage) { %>
-              <img
-                class="post-img"
-                src="<%= post.postImage %>"
-                alt="Post Image"
-              />
+              <img class="post-img" src="<%= post.postImage %>" alt="Post Image" />
               <% } else if (post.postVideo) { %>
               <video
                 class="post-video"
@@ -313,7 +401,6 @@
                 playsinline
                 controls
               ></video>
-
               <% } %>
               <div class="post-date"><%= post.date %></div>
               <div class="post-content"><%= post.content %></div>
@@ -331,37 +418,30 @@
 
           <div class="pageNumber">
             <% for(let i = 1; i <= totalPage; i++) { %>
-            <span>
-              <a href="/profile?page=<%= i %>"><%= i %></a>
-            </span>
+              <span><a href="/profile?page=<%= i %>"><%= i %></a></span>
             <% } %>
           </div>
-
-          <!-- <span><a href="">2</a></span>
-        <span><a href="">3</a></span>
-          <span><a href="">4</a></span>
-            <span><a href="">5</a></span> -->
         </div>
 
-        <!-- Right Section (Suggestions) -->
+        <!-- Right Section (Suggestions - only if available) -->
+        <% if(suggestions.length > 0){ %>
         <div class="suggestions-container">
           <h5>Friend Suggestions</h5>
           <% suggestions.map((user) => { %>
           <div class="suggestion-item">
             <li><%= user.userName %></li>
-            <a href="/send-friend-request?friendId=<%= user._id %>"
-              >Add Friend</a
-            >
+            <a href="/send-friend-request?friendId=<%= user._id %>">Add Friend</a>
           </div>
           <% }) %>
         </div>
+        <% } %>
       </div>
     </div>
 
     <script>
+      // Auto-play/pause videos on scroll
       document.addEventListener("DOMContentLoaded", function () {
         const videos = document.querySelectorAll("video");
-
         const observer = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
@@ -372,14 +452,9 @@
               }
             });
           },
-          {
-            threshold: 0.5,
-          }
+          { threshold: 0.5 }
         );
-
-        videos.forEach((video) => {
-          observer.observe(video);
-        });
+        videos.forEach((video) => observer.observe(video));
       });
     </script>
   </body>

@@ -1,3 +1,40 @@
+Social Media App
+
+This is a full-featured **Social Media Application** built using the (MongoDB, Express.js, Node.js). The app supports user authentication, profile creation, image/video sharing, friend suggestions, chatting, and more.
+
+---
+
+Features
+
+- ✅ User Registration & Login with JWT Authentication
+- 📧 Email Verification using Nodemailer
+- 👤 Profile Creation with Cloudinary Image Upload
+- 🖼️ Post Photos and Videos with Captions
+- ❤️ Like and Comment on Posts
+- 🔄 Reels Section (Short Videos)
+- 👫 Friend Request System(Send Request, Accept Request)
+- 📨 Basic Chat Functionality
+- 📄 Pagination for Posts and Reels
+- 🧠 Smart Friend Suggestions
+
+---
+
+Tech Stack
+
+#Backend
+- Node.js
+- Express.js
+- MongoDB (Mongoose)
+- JWT for Authentication
+- Bycrypt for encryption 
+- Multer + Cloudinary for File Upload
+- Nodemailer for Email Service
+- EJS for Email Templates
+
+---
+
+
+
 MERN Social Media App
 
 This is a full-featured **Social Media Application** built using the **MERN Stack** (MongoDB, Express.js, React, Node.js). The app supports user authentication, profile creation, image/video sharing, friend suggestions, chatting, and more.

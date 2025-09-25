@@ -43,7 +43,7 @@ userRoute.post("/", async (req, res) => {
 
   sendMail(email, "Mail Verification", msg);
 
-  res.send("Mail verification link has been sebnt to your mail");
+  res.redirect("/login");
 });
 
 // API for uplaod picture
@@ -156,7 +156,7 @@ userRoute.get("/profile", verifyToken, async (req, res) => {
   res.render("profilePage", { user, suggestions, posts, totalPage });
 });
 
-userRoute.post("/something-in mind", verifyToken, async (req, res) => {
+userRoute.post("/something-in-mind", verifyToken, async (req, res) => {
   const { email, userId } = req.user;
 
   const user = await userModel.findOne({ _id: userId });
@@ -225,7 +225,11 @@ userRoute.post(
     if (req.file !== undefined) {
       fs.unlinkSync(req.file.path);
     }
+
+    res.redirect('/view-user-profile')
   }
+
+   
 );
 
 //Api for view your profile
